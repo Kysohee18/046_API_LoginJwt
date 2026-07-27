@@ -17,7 +17,22 @@ async function register(req, res {
         });
 
 
-        const hashedpassowrd = await bcrypt.hash(password, 10);
-        const user =
+        const hashedpassword = await bcrypt.hash(password, 10);
+        const user = await User.create({
+            email,
+            password: hashedpassword
+        });
+        return res.status(201).json({
+            message: "resgistrasi berhasil",
+            data {
+                id: user.id,
+                email: user.email
+            }
+        });
+    }
+    catch {error} {
+        return res.status(500). json ({
+            message: error.message
+        });
     }
 })
