@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
     try {
-        const authHeader = req.header.authorization;
+        const authHeader = req.headers.authorization;
         if (!authHeader){
             return res.status(401).json({
                 message:"authorization token tidak ditemukan"
@@ -14,7 +14,7 @@ const authMiddleware = (req, res, next) => {
                 message: "format token tidak valid"
             });
         }
-        const decoded = jwt.verify{token, process.env. JWT_SECRET};
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded
         next();
 
